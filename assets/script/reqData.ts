@@ -46,8 +46,18 @@ export default class ReqData extends cc.Component {
         let message = JSON.stringify({
             K: DATA.Key.CMCreatePriRoom,
             V: {
-                GameType: 1,
-                TwoForDouble: true,
+                Name: "123ds",
+                Time: 30,
+            },
+        });
+        WS.WS_OBJ.send(message);
+    }
+    private joinRoom(event, data) {
+        const RN = cc.find("joinRoom/rn", this.node).getComponent(cc.EditBox).string;
+        let message = JSON.stringify({
+            K: DATA.Key.CMJoinPriRoom,
+            V: {
+                RN: Number(RN),
             },
         });
         WS.WS_OBJ.send(message);

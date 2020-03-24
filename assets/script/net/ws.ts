@@ -15,7 +15,8 @@ export class WS {
         this.web_socket.onmessage = (event) => {
 
             let response = JSON.parse(event.data);
-            console.log('response is ' + response);
+            console.log("response is :");
+            console.log(response);
             let value = response.V;
             let code = response.K;
             console.log(code);

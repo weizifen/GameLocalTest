@@ -24,15 +24,26 @@ export default class RedData extends cc.Component {
 
     // update (dt) {}
     protected onEnable() {
-        EventBus.addListener(DATA.Key.CMCreatePriRoom, this.respCreateRoom, this);
+        EventBus.addListener(DATA.SKey.SMCreatePriRoom, this.respCreateRoom, this);
+        EventBus.addListener(DATA.SKey.SMJoinPriRoom, this.respJoinRoom, this);
+
     }
     protected onDisable() {
         EventBus.removeListenerByTarget(this);
     }
     private respCreateRoom(res: any) {
         console.log(res);
+        const retObj = cc.find("createRoom/status", this.node).getComponent(cc.Label);
         if (res.Ret === 2) {
-            cc.find("createRoom/status", this.node).getComponent(cc.Label).string = "创建失败";
+            retObj.string = "创建失败";
+        }
+        if (res.Ret === 4) {
+            retObj.string = "已有房间";
+        }
+    }
+    private respJoinRoom(res: any) {
+        if (res.Ret === 1) {
+            cc.find("joinRoom/rn", this.node).getComponent(cc.EditBox).string = res.RN;
         }
     }
 }
