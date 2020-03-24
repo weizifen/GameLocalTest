@@ -62,4 +62,16 @@ export default class ReqData extends cc.Component {
         });
         WS.WS_OBJ.send(message);
     }
+    private readyGame(evemt, data) {
+        let message = JSON.stringify({
+            K: DATA.Key.CMReady,
+        });
+        WS.WS_OBJ.send(message);
+    }
+    private startGame(evemt, data) {
+        let message = JSON.stringify({
+            K: DATA.Key.CMStartPlay,
+        });
+        WS.WS_OBJ.send(message);
+    }
 }

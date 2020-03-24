@@ -26,6 +26,7 @@ export default class RedData extends cc.Component {
     protected onEnable() {
         EventBus.addListener(DATA.SKey.SMCreatePriRoom, this.respCreateRoom, this);
         EventBus.addListener(DATA.SKey.SMJoinPriRoom, this.respJoinRoom, this);
+        EventBus.addListener(DATA.SKey.SMReady, this.respReady, this);
 
     }
     protected onDisable() {
@@ -44,6 +45,14 @@ export default class RedData extends cc.Component {
     private respJoinRoom(res: any) {
         if (res.Ret === 1) {
             cc.find("joinRoom/rn", this.node).getComponent(cc.EditBox).string = res.RN;
+        }
+    }
+    private respReady(res: any) {
+        console.log("玩家准备");
+        const userIDLabel = cc.find('connect/userIDLabel', this.node).getComponent(cc.EditBox).string;
+        const readyLabel = cc.find("gameCore/ready/label", this.node).getComponent(cc.Label);
+        if (res.Ret === 1 && Number(userIDLabel) === res.UID) {
+            readyLabel.string = "本人已经准备";
         }
     }
 }
